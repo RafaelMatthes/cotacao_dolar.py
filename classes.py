@@ -16,13 +16,13 @@ class Dolar(object):
 
     def get_value(self,year,month,day):
         header = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36'}
-
         page = requests.get(f'{self._url}{year}-{month}-{day}', headers=header)
         
         if page.status_code == 200:
             valor = json.loads(json.dumps(xmltodict.parse(page.content)))
 
-            return f'{day}-{month}-{year}' , "%.2f" %(1 / float(valor['valor-convertido']))
+            print(valor['valor-convertido'])
+            return f'{day}-{month}-{year}' , "%.4f" %(1 / float(valor['valor-convertido']))
 
         return '','--' # dia sem fechamento de cotação
 
@@ -78,11 +78,12 @@ class Arquivo(object):
         self.arquivo_txt.write(f'Variação de valores no período:\n')
         self.arquivo_txt.write(f'Máxima - {higher}\n')
         self.arquivo_txt.write(f'Mínima - {lower}\n')
-        self.arquivo_txt.write(f'Média - {"%.2f" % float(sum/len(dict))} \n')
+        self.arquivo_txt.write(f'Média - {"%.4f" % float(sum/len(dict))} \n')
         
     def salva_txt(self):
         self.arquivo_txt.write(f'Fim da execução - {datetime.datetime.now()}')
         self.arquivo_txt.close()
+        print('Arquivo gerado em C:/CotacaoDolar')
 
     def build_xlsx(self, dict):
         
