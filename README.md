@@ -5,7 +5,7 @@
   - Python 3.8.3
   - pip 20.3.1
   
-# Para Utilizar o Scrip
+# Para Utilizar o Script
   *entre no diretório do arquivo*
   - pip install -r requirements.txt
   - python script_dolar.py 
